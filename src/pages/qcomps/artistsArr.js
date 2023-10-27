@@ -1,10 +1,21 @@
-import { useState } from 'react';
-
-let nextId = 0;
+import React, { useState } from 'react';
 
 export default function List() {
   const [name, setName] = useState('');
   const [artists, setArtists] = useState([]);
+  const [nextId, setNextId] = useState(0);
+
+  const addArtist = () => {
+    setArtists(prevArtists => [
+      ...prevArtists,
+      {
+        id: nextId,
+        name: name,
+      }
+    ]);
+    setNextId(prevId => prevId + 1); 
+    setName(''); // Clear the input field.
+  };
 
   return (
     <>
@@ -13,12 +24,7 @@ export default function List() {
         value={name}
         onChange={e => setName(e.target.value)}
       />
-      <button onClick={() => {
-        artists.push({
-          id: nextId++,
-          name: name,
-        });
-      }}>Add</button>
+      <button onClick={addArtist}>Add</button>
       <ul>
         {artists.map(artist => (
           <li key={artist.id}>{artist.name}</li>

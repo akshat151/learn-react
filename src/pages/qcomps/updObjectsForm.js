@@ -8,7 +8,11 @@ export default function Scoreboard() {
   });
 
   function handlePlusClick() {
-    player.score++;
+    setPlayer({
+      ...player,
+      score: player.score + 1
+    });
+    //player.score++;
   }
 
   function handleFirstNameChange(e) {
